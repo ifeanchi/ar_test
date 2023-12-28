@@ -23,6 +23,11 @@
                     
                     // Add a-ring to the north of the initial GPS position
                     const ringEntity = document.createElement("a-ring");
+                    ringEntity.setAttribute("scale", {
+                        x:10
+                        y:10
+                        z:10
+                    })
                     ringEntity.setAttribute("position", "0 0.5 0");
                     ringEntity.setAttribute("radius-inner", "0.5");
                     ringEntity.setAttribute("radius-outer", "0.7");
