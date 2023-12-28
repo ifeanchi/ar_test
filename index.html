@@ -13,31 +13,27 @@
 
     <script>
         window.onload = () => {
+            let testEntityAdded = false;
+
             const el = document.querySelector("[gps-new-camera]");
 
             el.addEventListener("gps-camera-update-position", e => {
-                // Get the ring entity
-                const ringEntity = document.querySelector("a-ring");
-
-                if (!ringEntity) {
-                    // Create the ring entity if it doesn't exist
-                    const newRingEntity = document.createElement("a-ring");
-                    newRingEntity.setAttribute("position", "0 0.5 0");
-                    newRingEntity.setAttribute("radius-inner", "0.5");
-                    newRingEntity.setAttribute("radius-outer", "0.7");
-                    newRingEntity.setAttribute('material', { color: '#4CC3D9' } );
-                    newRingEntity.setAttribute('gps-new-entity-place', {
-                        latitude: e.detail.position.latitude + 0.001,
-                        longitude: e.detail.position.longitude
-                    });
-                    document.querySelector("a-scene").appendChild(newRingEntity);
-                } else {
-                    // Update the position of the existing ring entity
+                if (!testEntityAdded) {
+                    alert(`Got first GPS position: lon ${e.detail.position.longitude} lat ${e.detail.position.latitude}`);
+                    
+                    // Add a-ring to the north of the initial GPS position
+                    const ringEntity = document.createElement("a-ring");
+                    ringEntity.setAttribute("position", "0 0.5 0");
+                    ringEntity.setAttribute("radius-inner", "0.5");
+                    ringEntity.setAttribute("radius-outer", "0.7");
+                    ringEntity.setAttribute('material', { color: '#4CC3D9' } );
                     ringEntity.setAttribute('gps-new-entity-place', {
                         latitude: e.detail.position.latitude + 0.001,
                         longitude: e.detail.position.longitude
                     });
+                    document.querySelector("a-scene").appendChild(ringEntity);
                 }
+                testEntityAdded = true;
             });
         };
     </script>
