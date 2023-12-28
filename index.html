@@ -10,11 +10,11 @@
 <body>
     <a-scene embedded arjs="sourceType: webcam;">
 
-        <!-- AR marker representing the object -->
-        <a-marker type="location-based" latitude="32.665640" longitude="96.991880">
+        <!-- AR entity representing the object -->
+        <a-entity gps-entity-place="latitude: 32.665640; longitude: 96.991880;">
             <!-- Your 3D model or object -->
             <a-ring position="0 0.5 0" radius-inner="0.5" radius-outer="0.7" material="color: #4CC3D9;"></a-ring>
-        </a-marker>
+        </a-entity>
 
         <!-- Camera for AR experience -->
         <a-entity camera gps-camera></a-entity>
