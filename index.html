@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Location-based AR</title>
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js'></script>
+    <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js'></script>
 </head>
 <body>
     <a-scene embedded arjs="sourceType: webcam;">
@@ -19,6 +20,15 @@
         <!-- Camera for AR experience -->
         <a-entity camera gps-camera></a-entity>
 
+    <a-scene vr-mode-ui='enabled: false' arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false' renderer='antialias: true; alpha: true'>
+        <a-camera gps-new-camera='gpsMinDistance: 5'></a-camera>
+         <!-- AR entity representing the object -->
+        <a-entity id="ar-entity" gps-entity-place>
+            <!-- Your 3D model or object -->
+            <a-ring position="0 0.5 0" radius-inner="0.5" radius-outer="0.7" material="color: #4CC3D9;"></a-ring>
+        </a-entity>
+    </a-scene>
+
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 // Get AR entity
@@ -31,7 +41,7 @@
 
                     // Set the distance and scale values (adjust these according to your needs)
                     const distance = 1; // in meters
-                    const scale = 1.0; // scale factor
+                    const scale = 10; // scale factor
 
                     // Calculate new position based on distance and user's location
                     const newPosition = calculateNewPosition(userLatitude, userLongitude, distance);
