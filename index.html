@@ -21,7 +21,7 @@
         if(!testEntityAdded) {
             alert(`Got first GPS position: lon ${e.detail.position.longitude} lat ${e.detail.position.latitude}`);
             // Add a box to the north of the initial GPS position
-            const entity = document.createElement("a-box");
+            const entity = document.createElement("a-ring");
             entity.setAttribute("scale", {
                 x: 20, 
                 y: 20,
