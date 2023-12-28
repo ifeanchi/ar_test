@@ -9,17 +9,6 @@
     <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js'></script>
 </head>
 <body>
-    <a-scene embedded arjs="sourceType: webcam;">
-
-        <!-- AR entity representing the object -->
-        <a-entity id="ar-entity" gps-entity-place>
-            <!-- Your 3D model or object -->
-            <a-ring position="0 0.5 0" radius-inner="0.5" radius-outer="0.7" material="color: #4CC3D9;"></a-ring>
-        </a-entity>
-
-        <!-- Camera for AR experience -->
-        <a-entity camera gps-camera></a-entity>
-
     <a-scene vr-mode-ui='enabled: false' arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false' renderer='antialias: true; alpha: true'>
         <a-camera gps-new-camera='gpsMinDistance: 5'></a-camera>
          <!-- AR entity representing the object -->
