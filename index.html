@@ -17,7 +17,14 @@
         <div id="leaflet-map-container" style="position: absolute; bottom: 33%; left: 0; width: 100%; height: 66%;"></div>
         
         <!-- Add a-image for the arrow marker -->
-        <a-image src="arrow.png" width="32" height="32" position="0 1 -2" look-at="[gps-camera]" gps-entity-place></a-image>
+<!--         <a-image src="arrow.png" width="32" height="32" position="0 1 -2" look-at="[gps-camera]" gps-entity-place></a-image> -->
+        <a-image material="src: #texture" asourcemap="#some-map"></a-image>
+<!-- somewhere else -->
+             <map id="some-map">
+               <area shape="rect" alt="rectangle" coords="0,0, 50,50" href="rect.html">
+               <area shape="polygon" alt="poly" coords="0,0, 40,50, 25,0">
+            </map>
+        
         
         <!-- Add a-ring for the distance away from the current location -->
         <a-ring scale="20 20 20" position="0 0.5 0" radius-inner="0.5" radius-outer="0.7" material="color: #4CC3D9;"></a-ring>
@@ -34,14 +41,15 @@
                 if (!testEntityAdded) {
                     alert(`Got first GPS position: lon ${e.detail.position.longitude} lat ${e.detail.position.latitude}`);
                     
-                    // Initialize Leaflet map
-                    map = L.map('leaflet-map-container').setView([e.detail.position.latitude, e.detail.position.longitude], 15);
-                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+                    // // Initialize Leaflet map
+                    // map = L.map('leaflet-map-container').setView([e.detail.position.latitude, e.detail.position.longitude], 15);
+                    // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-                    // Marker for current location
-                    marker = L.marker([e.detail.position.latitude, e.detail.position.longitude]).addTo(map)
-                        .bindPopup('You are here!')
-                        .openPopup();
+                    // // Marker for current location
+                    // marker = L.marker([e.detail.position.latitude, e.detail.position.longitude]).addTo(map)
+                    //     .bindPopup('You are here!')
+                    //     .openPopup();
+                   
 
                     // Add a-ring 1 meter to the east of the current location
                     const distance = 1; // 1 meter
