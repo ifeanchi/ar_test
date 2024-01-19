@@ -4,23 +4,12 @@
 <!-- https://ar-js-org.github.io/AR.js-Docs/location-based-aframe/ -->
 
 <head>
-<title>Fac AR Rotate</title>
-<!-- AR LIBRARIES -->
+<title>Fac AR</title>
 <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
 <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js'></script>
 <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js'></script>
-
-<!-- LEAFLET -->
-<!--
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
--->
-<script src="https://unpkg.com/leaflet@1.9/dist/leaflet-src.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9/dist/leaflet.css">
-
-<!-- LEAFLET-ROTATE -->
-<script src="https://unpkg.com/leaflet-rotate@0.2.8/dist/leaflet-rotate-src.js"></script>
-
 
 <style>
 html, body {
@@ -53,8 +42,7 @@ html, body {
 	opacity:0.5;
 /* 	transform-origin: -10px 30px; */
 }
-#HEADING,
-#DISTANCE {
+#heading {
 	position:absolute;
 	left:45%;
 	bottom:10px;
@@ -67,10 +55,6 @@ html, body {
 	text-align:center;
 	font-family: ariel;
 	z-index: 1001;
-}
-#DISTANCE {
-	left:10%;
-	width:100px;
 }
 
 @media all and (orientation:landscape) {
@@ -93,29 +77,14 @@ html, body {
 	#tech {
 		bottom:48%;
 		right:auto;
-		left:25%;
+		left:20%;
 	}
-	#HEADING {
+	#heading {
 		left:22%;
 	}
-	#DISTANCE {
-		left:5%;
-	}
-	
 }
-</style>
+</style>	
 </head>
-
-<script>
-let judith = [33.0582271, -96.8331665, 0];
-let kevin = [41.116339, -74.246796, -10];
-
-let place = kevin;
-
-let markerLat = place[0];
-let markerLng = place[1];
-let variation = place[2];
-</script>
 
 <body onload="init()" onbeforeunload="stop()">
     <div id="ar">
@@ -125,18 +94,17 @@ let variation = place[2];
                 gps-new-camera='gpsMinDistance: 5'
             ></a-camera>
             
- 			<a-image 
-		     	src="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"
-                gps-new-entity-place="latitude:41.116339; longitude:-74.246796;"
-		    	scale="8 8 8"
-	     	></a-image>
-
+            <a-entity 
+                material='color: red' 
+                geometry='primitive: box' 
+                gps-new-entity-place="latitude:33.0582271; longitude:-96.8331665;" 
+                scale="5 5 5"
+            ></a-entity>
         </a-scene>
     </div>
 
 	<div id="map"></div>
-    <div id="HEADING"></div>
-    <div id="DISTANCE"></div>
+    <div id="heading"></div>
     <div id="tech"/>
 
 <script>
@@ -144,6 +112,9 @@ let variation = place[2];
 let theMap = null;
 let sensor = null;
 let heading = 90;
+let lat = 33.0582271;
+let lng = -96.8331665;
+let variation = 0;	// kevin = -10  in NJ
 
 //init application
 const init = () => {
@@ -162,49 +133,26 @@ const stop = () => {
 // need to also take the pin location and init the AR with it!
 const initMap = () => {
 
-	theMap = L.map('map', {
-		center: [markerLat, markerLng],
-		zoom: 17,
-//		layers: [esri],
-		rotate: true,
-/*		
-		rotateControl: {
-			closeOnZeroBearing: false,
-			// position: 'bottomleft',
-		},
-*/		
-		// bearing: 30,
-		// attributionControl: false,
-		// zoomControl: false,
-		// compassBearing: false,
-		// trackContainerMutation: false,
-		// shiftKeyRotate: false,
-		// touchGestures: true,
-		touchRotate: true,
-		// touchZoom: true
-	});
-	
-	theMap.compassBearing.disable();
-	
+	theMap = L.map('map').setView([lat, lng], 13);
+
 	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 		maxZoom: 19,
 		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 	}).addTo(theMap);
-	
-	const marker = L.marker([markerLat, markerLng]).addTo(theMap);
+
+	const marker = L.marker([lat, lng]).addTo(theMap);
 }
 
 // begin location watch
 const initLocation = () => {
 	navigator.geolocation.getCurrentPosition(updateLocation, updateError);
-	// begin watching our location
-	navigator.geolocation.watchPosition(updateLocation);	
+	navigator.geolocation.watchPosition(updateLocation);
 }
 
 //handle location update
 const updateLocation = (position) => {
-	let lat = position.coords.latitude;
-	let lng = position.coords.longitude;
+	lat = position.coords.latitude;
+	lng = position.coords.longitude;
 	changeLocation(lat, lng);
 }
 
@@ -213,22 +161,10 @@ const updateError = (e) => {
 	console.log("UpdateError: " + e.message);
 }
 
-// move the map to center on us
-// should also zoom out if marker not visible?
+//move the map
 const changeLocation = (lat, lng) => {
 	if (theMap != null)
 		theMap.setView([lat,lng]);
-	
-	let distance = findDistance([lat,lng], [markerLat, markerLng]);
-	document.getElementById("DISTANCE").innerHTML = distance.toFixed(6);
-}
-
-//quickie close distance calc
-const findDistance = (coords1, coords2) => 
-{
-    const lonDiffSquared = Math.pow((coords1[0] - coords2[0]), 2);
-    const latDiffSquared = Math.pow((coords1[1] - coords2[1]), 2);
-    return Math.sqrt(latDiffSquared + lonDiffSquared);
 }
 
 // begin compass 
@@ -248,16 +184,14 @@ const changeHeading = () => {
 
 	// rotate the arrow
 	let rotate = -rawHeading
-//    document.getElementById("tech").style.transform = `rotate(${rotate}deg)`;
+    	document.getElementById("tech").style.transform = `rotate(${rotate}deg)`;
 
 	// print the heading
 	heading = rawHeading >= 0 ? 360- rawHeading : Math.abs(rawHeading);
 	heading = heading.toFixed(0);
 	if (heading == "360") heading = 0;
-    document.getElementById("HEADING").innerHTML = heading + "&deg";
-
-	// rotate the map instead
-	theMap.setBearing(rawHeading);
+    	document.getElementById("heading").innerHTML = heading + "&deg";
+    
 }
 
 </script>
